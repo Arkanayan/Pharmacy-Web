@@ -6,6 +6,8 @@ import * as browser from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
+import "angular2-materialize";
+
 /*
  * App Environment Providers
  * providers that only live in certain environment

@@ -32,6 +32,10 @@ module.exports = {
   entry: { 'polyfills': './src/polyfills.ts', 'main': './src/main.ts' },
 
   resolve: {
+    alias: {
+      materializecss: 'materialize-css/dist/css/materialize.css',
+      materialize: 'materialize-css/dist/js/materialize.js',
+    },
     extensions: ['', '.ts', '.js']
   },
 
@@ -50,6 +54,13 @@ module.exports = {
       { test: /\.js$/, loader: "source-map-loader", exclude: [ helpers.root('node_modules/rxjs') ] }
     ],
     loaders: [
+
+      {
+        test: /materialize-css\/dist\/js\/materialize\.js/,
+        loader: 'imports?materializecss'
+      },
+      { test: /materialize\.css$/,   loader: 'style-loader!css-loader' },
+
       // Support for .ts files.
       { test: /\.ts$/, loader: 'ts-loader', exclude: [ /\.(spec|e2e)\.ts$/, helpers.root('node_modules') ] },
 
@@ -60,7 +71,9 @@ module.exports = {
       { test: /\.css$/,   loader: 'raw-loader', exclude: [ helpers.root('node_modules') ] },
 
       // support for .html as raw text
-      { test: /\.html$/,  loader: 'raw-loader', exclude: [ helpers.root('src/index.html'), helpers.root('node_modules') ] }
+      { test: /\.html$/,  loader: 'raw-loader', exclude: [ helpers.root('src/index.html'), helpers.root('node_modules') ] },
+
+      { test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, loader: 'url-loader?limit=100000' }
 
     ]
   },
