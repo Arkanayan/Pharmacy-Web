@@ -76,6 +76,8 @@ module.exports = {
     modulesDirectories: ['node_modules'],
 
     alias: {
+      materializecss: 'materialize-css/dist/css/materialize.css',
+      materialize: 'materialize-css/dist/js/materialize.js',
       'angular2/core': helpers.root('node_modules/@angular/core/index.js'),
       'angular2/testing': helpers.root('node_modules/@angular/core/testing.js'),
       '@angular/testing': helpers.root('node_modules/@angular/core/testing.js'),
@@ -138,6 +140,13 @@ module.exports = {
      */
     loaders: [
 
+      { test: /materialize\.css$/,   loader: 'style-loader!css-loader' },
+      {
+        test: /materialize-css\/dist\/js\/materialize\.js/,
+        loader: 'imports?materializecss'
+      },
+      { test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/, loader: 'url-loader?limit=100000' },
+
       /*
        * Typescript loader support for .ts and Angular 2 async routes via .async.ts
        *
@@ -166,7 +175,7 @@ module.exports = {
        * See: https://github.com/webpack/raw-loader
        */
       {
-        test: /\.css$/,
+        test: /^((?!materialize).)*\.css$/,
         loader: 'raw-loader'
       },
 
@@ -191,6 +200,13 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#plugins
    */
   plugins: [
+
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      Hammer: "hammerjs/hammer"
+    }),
 
     /*
      * Plugin: ForkCheckerPlugin
