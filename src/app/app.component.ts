@@ -70,7 +70,7 @@ import { RouterActive } from './router-active';
             About
           </button>
       </md-toolbar>
-      
+
       <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
 
       <router-outlet></router-outlet>
@@ -93,7 +93,7 @@ import { RouterActive } from './router-active';
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   loading = false;
-  name = 'Angular 2 Webpack Starter';
+  name = 'Admin hello';
   url = 'https://twitter.com/AngularClass';
 
   constructor(

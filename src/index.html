@@ -32,6 +32,7 @@
   <!-- base url -->
   <base href="<%= webpackConfig.metadata.baseUrl %>">
 
+  <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
 
 </head>
 
@@ -40,7 +41,7 @@
   <app>
     Loading...
   </app>
-
+  <h1><%= webpackConfig.metadata.ENV %></h1>
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -54,9 +55,10 @@
 
   <% if (webpackConfig.metadata.ENV === 'development') { %>
   <!-- Webpack Dev Server reload -->
+
   <script src="/webpack-dev-server.js"></script>
   <% } %>
-  
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </body>

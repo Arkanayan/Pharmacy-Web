@@ -13,12 +13,14 @@ var CopyWebpackPlugin = (CopyWebpackPlugin = require('copy-webpack-plugin'), Cop
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
+// require("script!https://cdn.digits.com/1/sdk.js");
+
 /*
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
-  baseUrl: '/'
+  title: 'Admin Web app for Ahana Pharmacy 2',
+  baseUrl: '/',
 };
 
 /*
@@ -56,6 +58,10 @@ module.exports = {
 
   },
 
+  externals : {
+    "digits": "Digits"
+  },
+
   /*
    * Options affecting the resolving of modules.
    *
@@ -83,7 +89,7 @@ module.exports = {
       'angular2/platform/browser': helpers.root('node_modules/@angular/platform-browser/index.js'),
       'angular2/router': helpers.root('node_modules/@angular/router-deprecated/index.js'),
       'angular2/http': helpers.root('node_modules/@angular/http/index.js'),
-      'angular2/http/testing': helpers.root('node_modules/@angular/http/testing.js')
+      'angular2/http/testing': helpers.root('node_modules/@angular/http/testing.js'),
     },
 
   },

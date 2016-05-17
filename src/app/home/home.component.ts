@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { XLarge } from './x-large';
+import * as Digits from 'digits';
+// declare var Digits: any;
 
 @Component({
   // The selector is what angular internally uses
@@ -25,22 +27,54 @@ import { XLarge } from './x-large';
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: require('./home.html')
 })
-export class Home {
+
+export class Home implements AfterViewInit {
+  Digits: any;
+  loginStatus: any;
   // Set our default values
   localState = { value: '' };
   // TypeScript public modifiers
   constructor(public appState: AppState, public title: Title) {
 
+
+
+    // this.Digits = Digits;
+    this.loginStatus = "hello";
+
+
   }
 
   ngOnInit() {
     console.log('hello `Home` component');
+    // console.log(Digits);
+    if(!Digits.isInitialized()) {
+      Digits.init({ consumerKey: "Gwga2hQKqbsL8ElziK4dgOqly"});
+    }
+
     // this.title.getData().subscribe(data => this.data = data);
+  }
+
+  ngAfterViewInit() {
+    console.log(Digits.isInitialized());
+    Digits.getLoginStatus()
+      .done(function(loginResponse) {
+        if(loginResponse.status === "authorized") {
+            console.log("Authorized");
+        }
+      }).fail((error) => console.log("failed: " + error));
   }
 
   submitState(value) {
     console.log('submitState', value);
+    this.loginStatus = value;
     this.appState.set('value', value);
+    Digits.logIn({
+      phoneNumber: "+91"
+    })
+      .done(function(response) {
+        console.log(response);
+      });
   }
+
 
 }

@@ -34,5 +34,4 @@ if ('production' === ENV) {
 
 } else {
   // Development
-
 }

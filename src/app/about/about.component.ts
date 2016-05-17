@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { MdList, MD_LIST_DIRECTIVES } from '@angular2-material/list'
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -10,6 +10,7 @@ console.log('`About` component loaded asynchronously');
 
 @Component({
   selector: 'about',
+  directives: MD_LIST_DIRECTIVES,
   styles: [`
     h1 {
       font-family: Arial, Helvetica, sans-serif
@@ -27,7 +28,14 @@ console.log('`About` component loaded asynchronously');
     <h3>
       patrick@AngularClass.com
     </h3>
+
+    <md-list>
+       <md-list-item> Pepper </md-list-item>
+       <md-list-item> Salt </md-list-item>
+       <md-list-item> Paprika </md-list-item>
+    </md-list>
   </md-card>
+
 
   `
 })
