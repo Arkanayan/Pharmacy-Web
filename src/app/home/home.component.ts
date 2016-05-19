@@ -67,6 +67,7 @@ export class Home implements AfterViewInit {
   submitState(value) {
     console.log('submitState', value);
     this.loginStatus = value;
+
     this.appState.set('value', value);
     Digits.logIn({
       phoneNumber: "+91"
@@ -74,7 +75,9 @@ export class Home implements AfterViewInit {
       .done(function(response) {
         console.log(response);
       });
-   }
-
+   
+   
+  this.localState.value = '';
+  }
 
 }
