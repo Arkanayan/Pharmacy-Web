@@ -7,6 +7,7 @@ import { RouteConfig, Router } from '@angular/router-deprecated';
 import { AppState } from './app.service';
 import { Home } from './home';
 import { RouterActive } from './router-active';
+import { OrderDetail } from './order-detail';
 
 /*
  * App Component
@@ -69,6 +70,9 @@ import { RouterActive } from './router-active';
           <button md-button router-active [routerLink]=" ['About'] ">
             About
           </button>
+           <button md-button router-active [routerLink]=" ['Order Detail'] ">
+            Order Detail
+          </button>
       </md-toolbar>
 
       <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
@@ -88,12 +92,13 @@ import { RouterActive } from './router-active';
   { path: '/',      name: 'Index', component: Home, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') }
+  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  { path: '/order', name: 'Order Detail', component: OrderDetail }
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   loading = false;
-  name = 'Admin hello';
+  name = 'Login';
   url = 'https://twitter.com/AngularClass';
 
   constructor(
@@ -103,6 +108,7 @@ export class App {
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
+    
   }
 
 }

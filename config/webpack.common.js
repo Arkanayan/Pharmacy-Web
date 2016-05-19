@@ -65,7 +65,7 @@ module.exports = {
   /*
    * Options affecting the resolving of modules.
    *
-   * See: http://webpack.github.io/docs/configuration.html#resolve
+  * See: http://webpack.github.io/docs/configuration.html#resolve
    */
   resolve: {
 

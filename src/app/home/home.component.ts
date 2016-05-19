@@ -3,8 +3,8 @@ import { Component, AfterViewInit } from '@angular/core';
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { XLarge } from './x-large';
-import * as Digits from 'digits';
-// declare var Digits: any;
+// import * as Digits from 'digits';
+  declare var Digits: any;
 
 @Component({
   // The selector is what angular internally uses
@@ -46,7 +46,7 @@ export class Home implements AfterViewInit {
 
   ngOnInit() {
     console.log('hello `Home` component');
-    // console.log(Digits);
+    console.log(Digits);
     if(!Digits.isInitialized()) {
       Digits.init({ consumerKey: "Gwga2hQKqbsL8ElziK4dgOqly"});
     }
@@ -55,7 +55,7 @@ export class Home implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(Digits.isInitialized());
+    
     Digits.getLoginStatus()
       .done(function(loginResponse) {
         if(loginResponse.status === "authorized") {
@@ -74,7 +74,7 @@ export class Home implements AfterViewInit {
       .done(function(response) {
         console.log(response);
       });
-  }
+   }
 
 
 }
