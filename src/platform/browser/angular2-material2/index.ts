@@ -1,4 +1,4 @@
-import { MdAnchor, MdButton } from '@angular2-material/button';
+// import { MdAnchor, MdButton } from '@angular2-material/button';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MdCheckbox } from '@angular2-material/checkbox';
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
@@ -20,8 +20,8 @@ export const MATERIAL_PIPES = [
 export const MATERIAL_DIRECTIVES = [
   ...MD_SIDENAV_DIRECTIVES,
   ...[
-    MdAnchor,
-    MdButton,
+    // MdAnchor,
+    // MdButton,
     MdToolbar,
     MdCheckbox,
     MdRadioButton,
