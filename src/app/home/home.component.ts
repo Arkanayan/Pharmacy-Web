@@ -45,7 +45,7 @@ export class Home implements AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('hello `Home` component');
+    console.log('hello `Home` Component');
     console.log(Digits);
     if(!Digits.isInitialized()) {
       Digits.init({ consumerKey: "Gwga2hQKqbsL8ElziK4dgOqly"});

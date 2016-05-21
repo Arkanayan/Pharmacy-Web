@@ -19,7 +19,7 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Admin Web app for Ahana Pharmacy 2',
+  title: 'Admin Web app for Ahana Pharmacy',
   baseUrl: '/',
 };
 
