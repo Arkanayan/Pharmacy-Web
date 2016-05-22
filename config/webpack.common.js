@@ -90,6 +90,8 @@ module.exports = {
       'angular2/router': helpers.root('node_modules/@angular/router-deprecated/index.js'),
       'angular2/http': helpers.root('node_modules/@angular/http/index.js'),
       'angular2/http/testing': helpers.root('node_modules/@angular/http/testing.js'),
+      'materializecss': 'materialize-css/dist/css/materialize.css',
+      'materialize': 'materialize-css/dist/js/materialize.js',
     },
 
   },

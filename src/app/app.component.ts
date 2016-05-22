@@ -1,23 +1,22 @@
 /*
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation } from '@angular/core';
-import { RouteConfig, Router } from '@angular/router-deprecated';
-
-import { AppState } from './app.service';
-import { Home } from './home';
-import { RouterActive } from './router-active';
-import { OrderDetail } from './order-detail';
-
+import {Component, ViewEncapsulation} from '@angular/core';
+import {RouteConfig} from '@angular/router-deprecated';
+import {AppState} from './app.service';
+import {Home} from './home';
+import {RouterActive} from './router-active';
+import {OrderDetail} from './order-detail';
+import {Login} from './login';
 /*
  * App Component
  * Top Level Component
  */
 @Component({
   selector: 'app',
-  pipes: [ ],
-  providers: [ ],
-  directives: [ RouterActive ],
+  pipes: [],
+  providers: [],
+  directives: [RouterActive],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
@@ -40,6 +39,9 @@ import { OrderDetail } from './order-detail';
            <button md-button router-active [routerLink]=" ['Order Detail'] ">
             Order Detail
           </button>
+           <button md-button router-active [routerLink]=" ['Login'] ">
+           Login
+          </button>
       </md-toolbar>
 
       <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
@@ -56,26 +58,28 @@ import { OrderDetail } from './order-detail';
   `
 })
 @RouteConfig([
-  { path: '/',      name: 'Index', component: Home, useAsDefault: true },
-  { path: '/home',  name: 'Home',  component: Home },
+  {path: '/', name: 'Index', component: Home, useAsDefault: true},
+  {path: '/home', name: 'Home', component: Home},
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
-  { path: '/order', name: 'Order Detail', component: OrderDetail }
+  {path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About')},
+  {path: '/order', name: 'Order Detail', component: OrderDetail},
+  { path: '/login', name: 'Login', component: Login }
 ])
+
+
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   loading = false;
   name = 'Login';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState) {
+  constructor(public appState:AppState) {
 
   }
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
-    
+
   }
 
 }
