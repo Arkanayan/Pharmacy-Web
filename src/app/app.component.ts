@@ -23,38 +23,9 @@ import {Login} from './login';
     require('./app.css')
   ],
   template: `
-    <md-content>
-      <md-toolbar color="primary">
-          <span>{{ name }}</span>
-          <span class="fill"></span>
-          <button md-button router-active [routerLink]=" ['Index'] ">
-            Index
-          </button>
-          <button md-button router-active [routerLink]=" ['Home'] ">
-            Home
-          </button>
-          <button md-button router-active [routerLink]=" ['About'] ">
-            About
-          </button>
-           <button md-button router-active [routerLink]=" ['Order Detail'] ">
-            Order Detail
-          </button>
-           <button md-button router-active [routerLink]=" ['Login'] ">
-           Login
-          </button>
-      </md-toolbar>
-
-      <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
-
-      <router-outlet></router-outlet>
-
-      <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
-
-      <footer>
-        <img [src]="angularclassLogo" width="6%">
-        WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
-      </footer>
-      </md-content>
+      <div class="container">
+        <router-outlet></router-outlet>
+       </div>
   `
 })
 @RouteConfig([
@@ -68,10 +39,7 @@ import {Login} from './login';
 
 
 export class App {
-  angularclassLogo = 'assets/img/angularclass-avatar.png';
-  loading = false;
-  name = 'Login';
-  url = 'https://twitter.com/AngularClass';
+  
 
   constructor(public appState:AppState) {
 
