@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy } from '@angular/core';
-import {MaterializeDirective} from 'angular2-materialize';
 import {AuthService} from "../auth/auth.service";
 
 declare var Digits:any;
@@ -9,7 +8,7 @@ declare var Materialize:any;
   moduleId: module.id,
   selector: 'login',
   template: require('./login.component.html'),
-  directives: [MaterializeDirective],
+  directives: [],
   styles: [require('./login.component.css')]
 })
 
