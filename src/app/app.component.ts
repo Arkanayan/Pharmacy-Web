@@ -23,23 +23,18 @@ import {Login} from './login';
     require('./app.css')
   ],
   template: `
-      <div class="container">
         <router-outlet></router-outlet>
-       </div>
   `
 })
 @RouteConfig([
-  {path: '/', name: 'Index', component: Home, useAsDefault: true},
-  {path: '/home', name: 'Home', component: Home},
-  // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  {path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About')},
-  {path: '/order', name: 'Order Detail', component: OrderDetail},
-  { path: '/login', name: 'Login', component: Login }
+  { path: '/', redirectTo: ['/Login'] },
+  { path: '/home', component: Home, as: 'Home' },
+  { path: '/login', component: Login, as: 'Login' },
 ])
 
 
 export class App {
-  
+
 
   constructor(public appState:AppState) {
 

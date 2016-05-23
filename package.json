@@ -80,6 +80,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "firebase": "^3.0.1",
+    "hammerjs": "^2.0.8",
     "materialize-css": "^0.97.6",
     "morgan": "~1.6.1",
     "normalize.css": "^4.1.1",

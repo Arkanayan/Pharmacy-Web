@@ -91,7 +91,7 @@ module.exports = {
       'angular2/http': helpers.root('node_modules/@angular/http/index.js'),
       'angular2/http/testing': helpers.root('node_modules/@angular/http/testing.js'),
       'materializecss': 'materialize-css/dist/css/materialize.css',
-      'materialize': 'materialize-css/dist/js/materialize.js',
+      'materialize': 'materialize-css/dist/js/materialize.min.js'
     },
 
   },
@@ -145,7 +145,10 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#module-loaders
      */
     loaders: [
-
+      {
+        test: /materialize-css\/dist\/js\/materialize\.js/,
+        loader: 'imports?materializecss'
+      },
       /*
        * Typescript loader support for .ts and Angular 2 async routes via .async.ts
        *
@@ -199,6 +202,12 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#plugins
    */
   plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      Hammer: "hammerjs/hammer"
+    }),
 
     /*
      * Plugin: ForkCheckerPlugin

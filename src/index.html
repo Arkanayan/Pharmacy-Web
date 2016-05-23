@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
@@ -46,12 +47,15 @@
 </head>
 
 <body>
+      <div class="container">
+          <app>
+             Loading...
+          </app>
 
-  <app>
-    Loading...
-  </app>
+      </div>
+
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
-  <script>
+<!--  <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -59,7 +63,7 @@
 
     ga('create', 'UA-71073175-1', 'auto');
     ga('send', 'pageview');
-  </script>
+  </script>-->
 
   <% if (webpackConfig.metadata.ENV === 'development') { %>
   <!-- Webpack Dev Server reload -->

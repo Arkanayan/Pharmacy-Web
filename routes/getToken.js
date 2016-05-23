@@ -57,20 +57,29 @@ function getDigitsUserId(headerUrl, credentials, callback) {
     // console.log('statusCode: ', res.statusCode);
     // console.log('headers: ', res.headers);
 
+
     res.on('data', function (d) {
       // process.stdout.write(d);
       // console.log(JSON.parse(d));
-      callback(null,JSON.parse(d));
+     return callback(null,JSON.parse(d));
     });
 
   });
-
+/*
+req.on('socket', function (socket) {
+    socket.setTimeout(10000);
+    socket.on('timeout', function() {
+        req.abort();
+    });
+});*/
 
     req.on('error', function (e) {
-      callback(e);
+      console.log('error');
+     return callback(e);
     });
 
       req.end();
+
 
 
 }
