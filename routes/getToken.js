@@ -14,22 +14,22 @@ firebase.initializeApp({
 router.post('/', function (req, res, next) {
   var headerUrl = req.body["X-Auth-Service-Provider"];
   var credentials = req.body["X-Verify-Credentials-Authorization"];
-  if (headerUrl == null && credentials == null) {
-    res.status(400).send("not found");
+  if (headerUrl == null || credentials == null) {
+   return res.status(400).send("No parameters. Please send proper parameters.");
   } else {
 
-    getDigitsUserId(headerUrl, credentials, function (response) {
+    getDigitsUserId(headerUrl, credentials, function (err,response) {
+
+      if(err != null ) return res.status(400).send("Invalid Data");
+
       var id = response['id_str'];
       // console.log(id);
-      if (id != null) {
-
-
-      var token = firebase.auth().createCustomToken(id);
+      if (id == null) {
+       return res.status(400).send("Invalid data");
+      }
+       var token = firebase.auth().createCustomToken(id);
 
       res.send(token);
-      } else {
-        res.send("Invalid data").sendStatus(400);
-      }
 
     });
 
@@ -60,14 +60,14 @@ function getDigitsUserId(headerUrl, credentials, callback) {
     res.on('data', function (d) {
       // process.stdout.write(d);
       // console.log(JSON.parse(d));
-      callback(JSON.parse(d));
+      callback(null,JSON.parse(d));
     });
 
   });
 
 
     req.on('error', function (e) {
-      callback(d);
+      callback(e);
     });
 
       req.end();

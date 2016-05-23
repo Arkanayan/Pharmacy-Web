@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use(cors);
+app.use(cors({credentials: true, origin: true}));
 
 app.use('/', routes);
 app.use('/users', users);
