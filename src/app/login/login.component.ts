@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy } from '@angular/core';
-import {AuthService} from "../auth/auth.service";
+import {FirebaseService} from "../firebase/firebase.service";
 
 declare var Digits:any;
 declare var Materialize:any;
@@ -15,8 +15,18 @@ declare var Materialize:any;
 export class Login implements OnInit {
 
   title:any = "Login";
-
-  constructor(private _auth:AuthService) {
+  private user:any = null;
+  
+  constructor(private _auth:FirebaseService) {
+    var that = this;
+     this._auth.getFirebase().auth().onAuthStateChanged(function(firebaseUser) {
+     if (firebaseUser) {
+      // User is signed in.
+      that.user = firebaseUser;
+      } else {
+       // No user is signed in.
+      }
+    });
   }
 
   ngOnInit() {
@@ -25,8 +35,6 @@ export class Login implements OnInit {
     if (!Digits.isInitialized()) {
       Digits.init({consumerKey: "Gwga2hQKqbsL8ElziK4dgOqly"});
     }
-
-    console.log(this._auth.getFirebase().auth().getCurrentUser);
   }
 
 
@@ -66,6 +74,8 @@ export class Login implements OnInit {
         .subscribe((isAdmin) => {
           if (isAdmin) {
             console.log("You are admin");
+            
+            localStorage.setItem("logged_in", this._auth.getCurrentUser().uid);
             Materialize.toast("Welcome", 4000);
           } else {
             console.log("Your are not admin");

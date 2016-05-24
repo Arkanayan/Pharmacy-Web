@@ -29,8 +29,6 @@ import 'rxjs/add/operator/mergeMap';
 // look in src/platform/angular2-material2 and src/platform/providers
 
 import 'angular2-materialize';
-/*import 'materialize-css';
-import 'materialize';*/
 
 
 if ('production' === ENV) {

@@ -5,7 +5,7 @@ import * as Rx from 'rxjs/Rx';
 declare var firebase:any;
 
 @Injectable()
-export class AuthService {
+export class FirebaseService {
 
   constructor(private http: Http) {
     var config = {
@@ -15,8 +15,6 @@ export class AuthService {
       storageBucket: "ahana-pharmacy-ffe04.appspot.com",
     };
     firebase.initializeApp(config);
-
-    let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1aWQiOiI3MjIwNjg0NTIxNTcwOTE4NDAiLCJpYXQiOjE0NjM5ODQ1MTcsImV4cCI6MTQ2Mzk4ODExNywiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJpc3MiOiJhaGFuYS1waGFybWFjeS1iYWNrZW5kLWF1dGhAYWhhbmEtcGhhcm1hY3ktZmZlMDQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJzdWIiOiJhaGFuYS1waGFybWFjeS1iYWNrZW5kLWF1dGhAYWhhbmEtcGhhcm1hY3ktZmZlMDQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.eEk-uzy_fKlJXmMF3KW3mZxmXg5M4y4sMmQdtS1tWiUhS3rw34m__WNalvF4DwVG06zUCJU_aglts7szRjyGCsRZupVAJ0QVolWsEbf4K_qjgK6G2IZuTNczO6uUUK0kRWbVMTw6T2y6-L-hN1s_HfjAWiiBCdjz4xD4dgIm46vPsWp2KxDIjTr-6nOKobBnZAfVcsy0oQJm0MV96dURESbbqiyumkT1kr0dB5cYV2PTCfL32zj9pKJaVqsCsurpoKetmJbK6dQ5NpZMtiJoASNErckQpL2ZsUzuRK1GDDxmAxo1-hIZCot4ZCjjghRnrgK25AXr3H95e1JKfjK7iw";
 
   }
 
@@ -66,6 +64,10 @@ export class AuthService {
      
    }
    
+   public getCurrentUser() {
+     return this.getFirebase().auth().currentUser;
+   }
+   
    // Logout current user
    public logout() {
       this.getFirebase().auth().signOut();
@@ -80,7 +82,7 @@ export class AuthService {
      return Rx.Observable.create((observer) => {
        if (user != null) {
          let uid:string = user.uid;
-         firebase.database().ref('users/' + uid + '/admin').on('value', function(snapshot) {
+         firebase.database().ref('configs/roles/admin/' + uid).on('value', function(snapshot) {
            if (snapshot != null) {
              observer.next(snapshot.val());
            } else {

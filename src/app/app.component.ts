@@ -5,9 +5,10 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {RouteConfig} from '@angular/router-deprecated';
 import {AppState} from './app.service';
 import {Home} from './home';
-import {RouterActive} from './router-active';
+// import {RouterActive} from './router-active';
 import {OrderDetail} from './order-detail';
 import {Login} from './login';
+import {LoggedInRouterOutlet} from './logged-in-outlet';
 /*
  * App Component
  * Top Level Component
@@ -16,7 +17,7 @@ import {Login} from './login';
   selector: 'app',
   pipes: [],
   providers: [],
-  directives: [RouterActive],
+  directives: [LoggedInRouterOutlet],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
@@ -27,7 +28,7 @@ import {Login} from './login';
   `
 })
 @RouteConfig([
-  { path: '/', redirectTo: ['/Login'] },
+  { path: '/', redirectTo: ['/Home'] },
   { path: '/home', component: Home, as: 'Home' },
   { path: '/login', component: Login, as: 'Login' },
 ])
