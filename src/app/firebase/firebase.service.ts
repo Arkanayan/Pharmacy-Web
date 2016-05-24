@@ -33,9 +33,18 @@ export class FirebaseService {
         //  return Observable.throw(errorCode);
 
       });
-      
-       observer.next(firebase.auth().currentUser);
-       observer.complete();
+      var auth:any = firebase.auth();
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          observer.next(user);
+          observer.complete();
+          
+        } else {
+          observer.error("User not found");
+        }
+      });
+      return function() {
+      }
     });
   }
 
@@ -71,6 +80,7 @@ export class FirebaseService {
    // Logout current user
    public logout() {
       this.getFirebase().auth().signOut();
+      localStorage.clear();
    }
    
    /*
@@ -96,5 +106,12 @@ export class FirebaseService {
        }
      });
    }
+   
+   /*
+   *  Returns root firebase database
+   */
+  public getRootDatabase() {
+   return firebase.database();
+  }
 
 }

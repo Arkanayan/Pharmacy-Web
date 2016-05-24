@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy } from '@angular/core';
 import {FirebaseService} from "../firebase/firebase.service";
+import {Router} from '@angular/router-deprecated';
 
 declare var Digits:any;
 declare var Materialize:any;
@@ -17,9 +18,9 @@ export class Login implements OnInit {
   title:any = "Login";
   private user:any = null;
   
-  constructor(private _auth:FirebaseService) {
+  constructor(private _firebase:FirebaseService, private _router: Router) {
     var that = this;
-     this._auth.getFirebase().auth().onAuthStateChanged(function(firebaseUser) {
+     this._firebase.getFirebase().auth().onAuthStateChanged(function(firebaseUser) {
      if (firebaseUser) {
       // User is signed in.
       that.user = firebaseUser;
@@ -68,18 +69,21 @@ export class Login implements OnInit {
     //     console.log(error);
     //   });
 
-    this._auth.getToken(oAuthHeaders)
-        .flatMap((token) => this._auth.getUserFromToken(token))
-        .flatMap((user) => this._auth.checkIfAdmin(user))
+    this._firebase.getToken(oAuthHeaders)
+        .flatMap((token) => this._firebase.getUserFromToken(token))
+        .flatMap((user) => this._firebase.checkIfAdmin(user))
         .subscribe((isAdmin) => {
           if (isAdmin) {
             console.log("You are admin");
             
-            localStorage.setItem("logged_in", this._auth.getCurrentUser().uid);
+            localStorage.setItem("logged_in", this._firebase.getCurrentUser().uid);
             Materialize.toast("Welcome", 4000);
+            
+            // redirect to home page
+            this._router.navigate(['/Home']);
           } else {
             console.log("Your are not admin");
-            this._auth.logout();
+            this._firebase.logout();
           }
         });
 

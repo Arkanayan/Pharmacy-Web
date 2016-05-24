@@ -1,0 +1,20 @@
+<div class="row">
+<!--    <div class="collection col m3 s12">
+        <a href="#" *ngFor="let order of orderList" class="collection-item"
+           [class.active]="selectedOrder.orderId == order.orderId"
+           (click)="selectOrder(order)"
+
+        >{{ order.orderId }}</a>
+
+    </div>-->
+  <div class="col m3 s12">
+    <order-list [order_status]="orderStatus" (orderSelected)="selectOrder($event)"
+    ></order-list>
+  </div>
+
+  <div class="col m9 s12">
+       <order-detail *ngIf="selectedOrder" [order_path]="selectedOrder.orderPath"></order-detail>
+    </div>
+
+
+</div>

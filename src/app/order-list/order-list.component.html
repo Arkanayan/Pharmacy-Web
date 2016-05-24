@@ -1,0 +1,8 @@
+ <div class="collection">
+        <a href="#" *ngFor="let order of orderList" class="collection-item"
+           [class.active]="selectedOrder.orderId == order.orderId"
+           (click)="selectOrder(order)"
+
+        >{{ order.orderId }}</a>
+
+    </div>

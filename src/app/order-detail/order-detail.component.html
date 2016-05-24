@@ -1,9 +1,13 @@
-<h2>
-    {{ title }} hello
-</h2>
 
-      <md-input
-          placeholder="Submit Local State to App State"
-          [(ngModel)]="title"
-          autofocus>
-        </md-input>
+
+          <div class="card blue-grey darken-1"  *ngIf="order">
+            <div class="card-content white-text">
+              <span class="card-title">{{ order.orderId }}</span>
+              <p>{{ order.note }}</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+
