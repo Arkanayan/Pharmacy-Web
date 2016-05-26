@@ -30,16 +30,18 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
   }
 
   bindOrderListener() {
+/*
     this.orderRef.off();
+*/
     this.orderRef = this._firebase.getRootDatabase().ref("orders/" + this.orderPath);
     var that = this;
-    
+
     this.orderRef.on('value', function (snapshot) {
+
       that.order = snapshot.val();
-      console.log(that.order.orderId);
     });
-    
-    
+
+
 
   }
 
@@ -47,5 +49,7 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy() {
 
     this.orderRef.off();
+    console.log("On destroy order detail");
+
   }
 }

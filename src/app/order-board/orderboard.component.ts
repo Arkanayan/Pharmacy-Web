@@ -9,6 +9,7 @@ import { OrderList } from '../order-list';
   template: require('./orderboard.component.html'),
   directives: [ OrderDetail, OrderList]
 })
+
 export class OrderBoard implements OnInit, OnDestroy, OnChanges {
 
   @Input("order_status") orderStatus:string = "OPEN";
@@ -18,7 +19,7 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
   private hasInitialLoad: boolean = false;
 
   constructor(private _firebase: FirebaseService) {
-    this.ordersRef = this._firebase.getRootDatabase().ref('orders').orderByChild('status').equalTo("OPEN");
+    // this.ordersRef = this._firebase.getRootDatabase().ref('orders').orderByChild('status').equalTo("OPEN");
 
   }
 
@@ -30,7 +31,7 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
       this.orderStatus = "OPEN";
     }
 
-      this.ordersRef.off();
+  /*    this.ordersRef.off();
       this.ordersRef = this._firebase.getRootDatabase().ref('orders').orderByChild('status').equalTo(this.orderStatus);
 
       var that = this;
@@ -44,7 +45,7 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
         that.selectedOrder = that.orderList[0];
         // indicate that initially data has loaded
         that.hasInitialLoad = true;
-      });
+      });*/
 
 
   }
@@ -55,7 +56,8 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     // remove listener
-    this.ordersRef.off();
+    // this.ordersRef.off();
+    console.log("On destroy orderboard");
   }
 
 
