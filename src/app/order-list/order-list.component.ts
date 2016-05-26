@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter, OnDestroy } from '@angular/core';
 import {FirebaseService} from '../firebase/firebase.service';
+import {OrderEvent} from "../models/OrderEvent";
 
 declare var Materialize: any;
 declare var firebase: any;
@@ -13,12 +14,16 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
 
 
   @Input("order_status") orderStatus: string = "OPEN";
-  @Output() orderSelected: EventEmitter<any> = new EventEmitter();
+  @Output() orderSelectedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() orderAddedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() orderRemovedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() orderCountChange:EventEmitter<number> = new EventEmitter();
+  
   public orderList: any[] = [];
   private selectedOrder: any;
   private ordersRef: any;
   private hasInitialLoad: boolean = false;
-  private newOrderCount:number = 0;
+  private orderCount:number = 0;
 
   private rootRef;
   constructor(private _firebase: FirebaseService) {
@@ -48,12 +53,16 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
 
       snapshot.forEach((childSnapshot) => {
         that.orderList.unshift(childSnapshot.val());
+        that.orderCount++;
       });
 
       // set selectedOrder to first item
       that.selectOrder(that.orderList[0]);
       // indicate that initially data has loaded
       that.hasInitialLoad = true;
+      //emit order count event
+      that.orderCountChange.emit(that.orderCount);
+
     });
 
 
@@ -75,7 +84,15 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
       if (that.hasInitialLoad) {
         that.orderList.unshift(order);
         Materialize.toast("New order: " + order.orderId, 2000); // 4000 is the duration of the toast
-        that.newOrderCount++;
+        that.orderCount++;
+
+        let orderEvent = new OrderEvent();
+        orderEvent.orderCount  = that.orderCount;
+        orderEvent.orderId = order.orderId;
+        
+        //emit evnets
+        that.orderAddedEvent.emit(orderEvent);
+        that.orderCountChange.emit(that.orderCount);
       }
       // this.orderList[child.key()] = child.val();
     });
@@ -99,9 +116,20 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
       // delete element from ordersList array
       if (pos > -1) {
         that.orderList.splice(pos, 1);
-        Materialize.toast("Order deleted: " + order.orderId, 2000); // 4000 is the duration of the toast
+
+        that.orderCount--;
+        
+        let orderEvent = new OrderEvent();
+        orderEvent.orderCount  = that.orderCount;
+        orderEvent.orderId = order.orderId;
+        
+        // emit events
+        that.orderRemovedEvent.emit(orderEvent);
+        that.orderCountChange.emit(that.orderCount);
 
       }
+
+
     });
   }
 
@@ -113,6 +141,6 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
 
   selectOrder(order) {
     this.selectedOrder = order;
-    this.orderSelected.emit(this.selectedOrder);
+    this.orderSelectedEvent.emit(this.selectedOrder);
   }
 }

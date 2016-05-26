@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from '../firebase';
 import { OrderDetail } from '../order-detail';
 import { OrderList } from '../order-list';
@@ -13,6 +13,8 @@ import { OrderList } from '../order-list';
 export class OrderBoard implements OnInit, OnDestroy, OnChanges {
 
   @Input("order_status") orderStatus:string = "OPEN";
+  @Output() orderCountChange:EventEmitter<any> = new EventEmitter();
+
   public orderList: any[] = [];
   private selectedOrder: any;
   private ordersRef: any;
@@ -61,7 +63,11 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
   }
 
 
+  onOrderCountChange(event) {
+    this.orderCountChange.emit(event);
+    console.log("order count change: " + event);
 
+  }
 
 
 }

@@ -8,7 +8,8 @@
 
     </div>-->
   <div class="col m3 s12">
-    <order-list [order_status]="orderStatus" (orderSelected)="selectOrder($event)"
+    <order-list [order_status]="orderStatus" (orderSelectedEvent)="selectOrder($event)"
+                (orderCountChange)="onOrderCountChange($event)"
     ></order-list>
   </div>
 

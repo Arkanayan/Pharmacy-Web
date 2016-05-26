@@ -1,11 +1,12 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 
-import { AppState } from '../app.service';
-import { FirebaseService } from '../firebase';
+import {AppState} from '../app.service';
+import {FirebaseService} from '../firebase';
 import {XLarge} from './x-large';
-import { OrderBoard } from '../order-board';
+import {OrderBoard} from '../order-board';
+import { MaterializeDirective } from 'angular2-materialize';
 // import * as Digits from 'digits';
-  declare var Digits: any;
+declare var Digits:any;
 
 @Component({
   // The selector is what angular internally uses
@@ -13,18 +14,18 @@ import { OrderBoard } from '../order-board';
   // where, in this case, selector is the string 'home'
   selector: 'home',  // <home></home>
   // We need to tell Angular's Dependency Injection which providers are in our app.
-  providers: [
-  ],
+  providers: [],
   // We need to tell Angular's compiler which directives are in our template.
   // Doing so will allow Angular to attach our behavior to an element
   directives: [
     XLarge,
-    OrderBoard
+    OrderBoard,
+    MaterializeDirective
   ],
   // We need to tell Angular's compiler which custom pipes are in our template.
-  pipes: [ ],
+  pipes: [],
   // Our list of styles in our component. We may add more to compose many styles together
-  styles: [ require('./home.css') ],
+  styles: [require('./home.css')],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: require('./home.html')
 })
@@ -34,7 +35,12 @@ export class Home implements AfterViewInit {
   // TypeScript public modifiers
 
   private orderStatus:string = "OPEN";
-  constructor(public appState: AppState,private _firebase: FirebaseService ) {
+  private confirmStatus:string = "CONFIRMED";
+  private acknowledgedStatus:string = "ACKNOWLEDGED";
+
+  private openOrderCount:number;
+
+  constructor(public appState:AppState, private _firebase:FirebaseService) {
 
   }
 
@@ -43,11 +49,25 @@ export class Home implements AfterViewInit {
     // this.title.getData().subscribe(data => this.data = data);
   }
 
+  statusOpen() {
+    this.orderStatus = "OPEN";
+  }
+
+  statusConfirmed() {
+    this.orderStatus = "CONFIRMED";
+  }
+
   ngAfterViewInit() {
 
 
   }
 
+  selectOrder(evnet) {
+    console.log("from home selected");
+  }
 
-
+  setOpenOrderCount(count) {
+    this.openOrderCount = count;
+    console.log("OPEN order count: " + count);
+  }
 }
