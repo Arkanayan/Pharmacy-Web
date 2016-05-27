@@ -1,5 +1,9 @@
- <div class="collection">
-        <a href="#" *ngFor="let order of orderList" class="collection-item"
+ <div class="collection" *ngIf="orderList.length">
+          <input placeholder="Search" value="" class="input-field collection-item" id="order-search-box"
+                 [(ngModel)]="searchTerm"
+                 (keydown.esc)="searchTerm=''"
+          >
+        <a href="#" *ngFor="let order of orderList | orderFilter:searchTerm" class="collection-item"
            [class.active]="selectedOrder.orderId == order.orderId"
            (click)="selectOrder(order)"
 

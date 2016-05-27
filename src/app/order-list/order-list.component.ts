@@ -1,48 +1,52 @@
-import { Component, OnInit, Input, Output, OnChanges, EventEmitter, OnDestroy } from '@angular/core';
+import {Component, OnInit, Input, Output, OnChanges, EventEmitter, OnDestroy} from '@angular/core';
 import {FirebaseService} from '../firebase/firebase.service';
 import {OrderEvent} from "../models/OrderEvent";
+import {OrderSearchPipe} from "../pipes/OrderSearchPipe";
 
-declare var Materialize: any;
-declare var firebase: any;
+declare var Materialize:any;
+declare var firebase:any;
 
 @Component({
   moduleId: module.id,
   selector: 'order-list',
-  template: require('./order-list.component.html')
+  template: require('./order-list.component.html'),
+  styles: [require('./order-list.component.css')],
+  pipes: [OrderSearchPipe]
 })
-export class OrderList implements OnInit, OnChanges, OnDestroy {
+export class OrderList implements OnChanges, OnDestroy {
 
 
-  @Input("order_status") orderStatus: string = "OPEN";
-  @Output() orderSelectedEvent: EventEmitter<any> = new EventEmitter();
-  @Output() orderAddedEvent: EventEmitter<any> = new EventEmitter();
-  @Output() orderRemovedEvent: EventEmitter<any> = new EventEmitter();
+  @Input("order_status") orderStatus:string = "OPEN";
+  @Output() orderSelectedEvent:EventEmitter<any> = new EventEmitter();
+  @Output() orderAddedEvent:EventEmitter<any> = new EventEmitter();
+  @Output() orderRemovedEvent:EventEmitter<any> = new EventEmitter();
   @Output() orderCountChange:EventEmitter<number> = new EventEmitter();
 
-  public orderList: any[] = [];
-  private selectedOrder: any;
-  private ordersRef: any;
-  private hasInitialLoad: boolean = false;
+  public orderList:any[] = [];
+  private selectedOrder:any;
+  private ordersRef:any;
+  private hasInitialLoad:boolean = false;
   private orderCount:number = 0;
 
   private rootRef;
-  constructor(private _firebase: FirebaseService) {
+
+  constructor(private _firebase:FirebaseService) {
     this.ordersRef = firebase.database().ref('orders').orderByChild('status').equalTo("OPEN");
   }
 
-/*  ngOnInit() {
+  /*  ngOnInit() {
 
-  }*/
+   }*/
 
 
- ngOnChanges(changes: {}) {
+  ngOnChanges(changes:{}) {
     if (this.orderStatus == null) {
       this.orderStatus = "OPEN";
     }
 
-/*
-    this.ordersRef.off();
-*/
+    /*
+     this.ordersRef.off();
+     */
     this.ordersRef = firebase.database().ref('orders').orderByChild('status').equalTo(this.orderStatus);
 
     this.addListener();
@@ -66,8 +70,6 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
     });
 
 
-
-
   }
 
   private addListener() {
@@ -77,7 +79,7 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
 
 
     // add new orders to list on child add
-    this.ordersRef.on('child_added', function(dataSnapshot) {
+    this.ordersRef.on('child_added', function (dataSnapshot) {
 
       //this.orderList.push(child);
       var order = dataSnapshot.val();
@@ -86,7 +88,7 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
         that.orderCount++;
 
         let orderEvent = new OrderEvent();
-        orderEvent.orderCount  = that.orderCount;
+        orderEvent.orderCount = that.orderCount;
         orderEvent.orderId = order.orderId;
 
         //emit evnets
@@ -98,19 +100,23 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
 
 
     // Reflect changes to order list
-    this.ordersRef.on('child_changed',(dataSnapshot) => {
+    this.ordersRef.on('child_changed', (dataSnapshot) => {
       //this.orderList.push(child);
       console.log("Changed" + dataSnapshot.val().orderId);
       // this.orderList.unshift(child.val());
-      let pos : number = this.orderList.map(function(e) { return e.orderPath; }).indexOf(dataSnapshot.val().orderPath);
-      
+      let pos:number = this.orderList.map(function (e) {
+        return e.orderPath;
+      }).indexOf(dataSnapshot.val().orderPath);
+
       this.orderList[pos] = dataSnapshot.val();
     });
 
     // delete order from order list
-    this.ordersRef.on('child_removed', function(data) {
-      let pos : number = that.orderList.map(function(e) { return e.orderPath; }).indexOf(data.key);
-      
+    this.ordersRef.on('child_removed', function (data) {
+      let pos:number = that.orderList.map(function (e) {
+        return e.orderPath;
+      }).indexOf(data.key);
+
       let order = data.val();
       // delete element from ordersList array
       if (pos > -1) {
@@ -119,7 +125,7 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
         that.orderCount--;
 
         let orderEvent = new OrderEvent();
-        orderEvent.orderCount  = that.orderCount;
+        orderEvent.orderCount = that.orderCount;
         orderEvent.orderId = order.orderId;
 
         // emit events
