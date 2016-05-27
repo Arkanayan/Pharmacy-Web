@@ -17,7 +17,7 @@ export class Login implements OnInit {
 
   title:any = "Login";
   private user:any = null;
-  
+
   constructor(private _firebase:FirebaseService, private _router: Router) {
     var that = this;
      this._firebase.getFirebase().auth().onAuthStateChanged(function(firebaseUser) {
@@ -75,17 +75,21 @@ export class Login implements OnInit {
         .subscribe((isAdmin) => {
           if (isAdmin) {
             console.log("You are admin");
-            
+
             localStorage.setItem("logged_in", this._firebase.getCurrentUser().uid);
             Materialize.toast("Welcome", 4000);
-            
+
             // redirect to home page
             this._router.navigate(['/Home']);
           } else {
             console.log("Your are not admin");
             this._firebase.logout();
+            Materialize.toast("Sorry, Login Failed", 4000);
+
           }
-        });
+        }, (loginError) => {
+          Materialize.toast("Sorry, Login Failed", 4000);
+        } );
 
   }
 
