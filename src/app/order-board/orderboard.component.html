@@ -10,6 +10,8 @@
   <div class="col m3 s12">
     <order-list [order_status]="orderStatus" (orderSelectedEvent)="selectOrder($event)"
                 (orderCountChange)="onOrderCountChange($event)"
+                (orderAddedEvent)="onOrderAdded($event)"
+                (orderRemovedEvent)="onOrderRemoved($event)"
     ></order-list>
   </div>
 

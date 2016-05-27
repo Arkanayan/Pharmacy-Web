@@ -18,7 +18,7 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
   @Output() orderAddedEvent: EventEmitter<any> = new EventEmitter();
   @Output() orderRemovedEvent: EventEmitter<any> = new EventEmitter();
   @Output() orderCountChange:EventEmitter<number> = new EventEmitter();
-  
+
   public orderList: any[] = [];
   private selectedOrder: any;
   private ordersRef: any;
@@ -83,13 +83,12 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
       var order = dataSnapshot.val();
       if (that.hasInitialLoad) {
         that.orderList.unshift(order);
-        Materialize.toast("New order: " + order.orderId, 2000); // 4000 is the duration of the toast
         that.orderCount++;
 
         let orderEvent = new OrderEvent();
         orderEvent.orderCount  = that.orderCount;
         orderEvent.orderId = order.orderId;
-        
+
         //emit evnets
         that.orderAddedEvent.emit(orderEvent);
         that.orderCountChange.emit(that.orderCount);
@@ -104,25 +103,25 @@ export class OrderList implements OnInit, OnChanges, OnDestroy {
       console.log("Changed" + dataSnapshot.val().orderId);
       // this.orderList.unshift(child.val());
       let pos : number = this.orderList.map(function(e) { return e.orderPath; }).indexOf(dataSnapshot.val().orderPath);
-      console.log("Pos: " + pos);
+      
       this.orderList[pos] = dataSnapshot.val();
     });
 
     // delete order from order list
     this.ordersRef.on('child_removed', function(data) {
       let pos : number = that.orderList.map(function(e) { return e.orderPath; }).indexOf(data.key);
-      console.log("order deleted at pos: " + pos);
+      
       let order = data.val();
       // delete element from ordersList array
       if (pos > -1) {
         that.orderList.splice(pos, 1);
 
         that.orderCount--;
-        
+
         let orderEvent = new OrderEvent();
         orderEvent.orderCount  = that.orderCount;
         orderEvent.orderId = order.orderId;
-        
+
         // emit events
         that.orderRemovedEvent.emit(orderEvent);
         that.orderCountChange.emit(that.orderCount);

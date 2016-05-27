@@ -8,23 +8,32 @@
           ({{ openOrderCount }})
         </a>
         </li>
-        <li class="tab col s3"><a href="#acknowledged">Acknowledged</a></li>
-        <li class="tab col s3"><a href="#confirmed">Confirmed</a></li>
+        <li class="tab col s3"><a href="#acknowledged">Acknowledged
+        ({{ ackOrdersCount }})
+        </a></li>
+        <li class="tab col s3"><a href="#confirmed">Confirmed
+        ({{ confirmedOrderCount }})
+        </a></li>
       </ul>
     </div>
     <div id="open" class="col s12">
       <order-board [order_status]="orderStatus"  (orderSelectedEvent)="selectOrder($event)"
-      (orderCountChange)="setOpenOrderCount($event)"
+      (orderCountChange)="openOrderCount=$event"
+                   (orderAddedEvent)="newOrder($event)"
       >Loading Please wait</order-board>
 
     </div>
     <div id="acknowledged" class="col s12">
-      <order-board [order_status]="acknowledgedStatus">Loading Please wait</order-board>
+      <order-board [order_status]="acknowledgedStatus"
+      (orderCountChange)="ackOrdersCount=$event"
+      >Loading Please wait</order-board>
 
     </div>
 
     <div id="confirmed" class="col s12">
-      <order-board [order_status]="confirmStatus">Loading Please wait</order-board>
+      <order-board [order_status]="confirmStatus"
+      (orderCountChange)="confirmedOrderCount=$event"
+      >Loading Please wait</order-board>
 
     </div>
 

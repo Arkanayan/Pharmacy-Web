@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Input, OnChanges, Output, EventEmitter } 
 import { FirebaseService } from '../firebase';
 import { OrderDetail } from '../order-detail';
 import { OrderList } from '../order-list';
+import {OrderEvent} from "../models/OrderEvent";
 
 @Component({
   moduleId: module.id,
@@ -14,6 +15,8 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
 
   @Input("order_status") orderStatus:string = "OPEN";
   @Output() orderCountChange:EventEmitter<any> = new EventEmitter();
+  @Output() orderAddedEvent:EventEmitter<OrderEvent> = new EventEmitter();
+  @Output() orderRemovedEvent:EventEmitter<OrderEvent> = new EventEmitter();
 
   public orderList: any[] = [];
   private selectedOrder: any;
@@ -65,8 +68,14 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
 
   onOrderCountChange(event) {
     this.orderCountChange.emit(event);
-    console.log("order count change: " + event);
-
+  }
+  
+  onOrderAdded(event) {
+    this.orderAddedEvent.emit(event);
+  }
+  
+  onOrderRemoved(event) {
+    this.orderRemovedEvent.emit(event);
   }
 
 

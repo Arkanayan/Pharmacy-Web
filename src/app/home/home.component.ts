@@ -5,8 +5,9 @@ import {FirebaseService} from '../firebase';
 import {XLarge} from './x-large';
 import {OrderBoard} from '../order-board';
 import { MaterializeDirective } from 'angular2-materialize';
+import {OrderEvent} from "../models/OrderEvent";
 // import * as Digits from 'digits';
-declare var Digits:any;
+declare var Materialize: any;
 
 @Component({
   // The selector is what angular internally uses
@@ -38,8 +39,6 @@ export class Home implements AfterViewInit {
   private confirmStatus:string = "CONFIRMED";
   private acknowledgedStatus:string = "ACKNOWLEDGED";
 
-  private openOrderCount:number;
-
   constructor(public appState:AppState, private _firebase:FirebaseService) {
 
   }
@@ -66,8 +65,9 @@ export class Home implements AfterViewInit {
     console.log("from home selected");
   }
 
-  setOpenOrderCount(count) {
-    this.openOrderCount = count;
-    console.log("OPEN order count: " + count);
+  newOrder(orderEvent: OrderEvent) {
+    console.log("new order: " + orderEvent.orderId);
+    Materialize.toast("New order: " + orderEvent.orderId, 4000);
   }
+
 }
