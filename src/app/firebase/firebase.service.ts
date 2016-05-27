@@ -33,30 +33,35 @@ export class FirebaseService {
         //  return Observable.throw(errorCode);
 
       });
-      var auth:any = firebase.auth();
-      auth.onAuthStateChanged(function(user) {
-        if (user) {
-          observer.next(user);
-          observer.complete();
-          
-        } else {
-          observer.error("User not found");
-        }
-      });
+      // Add delay so it auth() gets proper time to initialize
+      var authInterval = setInterval(() => {
+        var auth:any = firebase.auth();
+        auth.onAuthStateChanged(function(user) {
+          if (user) {
+            observer.next(user);
+            observer.complete();
+
+          } else {
+            observer.error("User not found");
+          }
+        });
+      }, 2000);
+
       return function() {
+        clearInterval(authInterval);
       }
     });
   }
 
    /*
-   *  @returns token 
+   *  @returns token
    */
    public getToken(digitsCreds) {
      var loginData = {
       "credentials": digitsCreds['X-Verify-Credentials-Authorization'],
       "provider": digitsCreds['X-Auth-Service-Provider']
     };
-    
+
     var authUrl: string = "https://appadmin-apharmacy.rhcloud.com/getToken";
 
      var params = "X-Auth-Service-Provider=" + loginData.provider + "&X-Verify-Credentials-Authorization=" +
@@ -70,25 +75,25 @@ export class FirebaseService {
     return this.http.post(authUrl, params, {
       headers: headers
     }).map(body => body.text());
-     
+
    }
-   
+
    public getCurrentUser() {
      return this.getFirebase().auth().currentUser;
    }
-   
+
    // Logout current user
    public logout() {
       this.getFirebase().auth().signOut();
       localStorage.clear();
    }
-   
+
    /*
    *  Checks if the user is admin or not
    *  ret true
    */
    public checkIfAdmin(user: any):Rx.Observable<boolean> {
-     
+
      return Rx.Observable.create((observer) => {
        if (user != null) {
          let uid:string = user.uid;
@@ -101,12 +106,12 @@ export class FirebaseService {
            }
          });
        } else {
-         console.log("User is null");         
+         console.log("User is null");
          observer.error("Unable to fetch user");
        }
      });
    }
-   
+
    /*
    *  Returns root firebase database
    */
