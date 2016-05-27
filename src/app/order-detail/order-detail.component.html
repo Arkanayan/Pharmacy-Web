@@ -1,13 +1,89 @@
 
 
-          <div class="card blue-grey darken-1"  *ngIf="order">
-            <div class="card-content white-text">
-              <span class="card-title">{{ order.orderId }}</span>
-              <p>{{ order.note }}</p>
+          <div class="card" materialize  *ngIf="order">
+            <div class="card-content text-darken-1 grey-text">
+              <span class="card-title activator">{{ order.orderId }}</span>
+              <span class="date-created">{{ order.createdAt | date:'MMMdyy hh:mm' }}</span>
+            <div class="row">
+
+              <div class="col m4 s4">
+                <h5>Prescription</h5>
+
+                <img src="#" width="100px" height="100px" style="background-color: #00acc1">
+                <br>
+                <h5>Note:</h5>
+
+                <p>
+                  {{ order.note }}
+                </p>
+              </div>
+              <div class="col m4 s8">
+                <h5>User details</h5>
+                <div *ngIf="user">
+                  <p>{{ user.firstName }} {{ user.lastName }}</p>
+                  <p>{{ user.phoneNumber }}</p>
+                  <p>{{ user.emailAddress }}</p>
+                  <p>Uid: {{ user?.uid }}</p>
+
+                </div>
+                <h5>Address</h5>
+                <div  *ngIf="address">
+                  <p>{{ address.addressLine1 }}</p>
+                  <p>{{ address.addressLine2 }}</p>
+                  <p>{{ address.landmark }}</p>
+                  <p>{{ address.pin }}</p>
+
+                </div>
+              </div>
+              <div class="col m4 s12">
+                <h5>Pricing</h5>
+
+                <label for="price">Price</label>
+                <input id="price" [(ngModel)]="order.price" type="number">
+
+                <label for="shippingCharge">Shipping Charge</label>
+                <input id="shippingCharge" [(ngModel)]="order.shippingCharge" type="number">
+
+
+                </div>
+
+
+              <div class="col s12 input-field">
+                <textarea id="seller-note" class="materialize-textarea" [(ngModel)]="order.sellerNote"></textarea>
+                <label for="seller-note">Your Note</label>
+              </div>
             </div>
+
+
+            </div>
+
+
             <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
+              <a href="#" (click)="updateOrder()">Save</a>
+              <a href="#" class="activator">Send notification</a>
+
+            </div>
+            <div class="card-reveal">
+
+              <span class="card-title grey-text text-darken-4">Send notification<i class="material-icons right">close</i></span>
+
+              <label for="notification-title">Notification title</label>
+              <input id="notification-title" type="text">
+
+              <label for="notification-message">Notification message</label>
+              <input id="notification-message"  type="text">
+
+              <div class="input-field">
+                <select materialize="material_select" [(ngModel)]="order.status">
+                  <option  *ngFor="let status of status_array" [ngValue]="status">{{ status }}</option>
+
+                </select>
+                <label>Set Status</label>
+              </div>
+              <br>
+              <button class="btn waves-effect waves-light" type="button" name="action">Send
+                <i class="material-icons right">send</i>
+              </button>
             </div>
           </div>
 

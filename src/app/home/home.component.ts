@@ -44,7 +44,6 @@ export class Home implements AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('hello `Home` Component');
     // this.title.getData().subscribe(data => this.data = data);
   }
 

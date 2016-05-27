@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, OnChanges, EventEmitter, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, Output, OnChanges, EventEmitter, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {FirebaseService} from '../firebase/firebase.service';
 import {OrderEvent} from "../models/OrderEvent";
 import {OrderSearchPipe} from "../pipes/OrderSearchPipe";

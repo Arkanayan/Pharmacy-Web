@@ -3,13 +3,16 @@
  */
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'orderFilter'})
+@Pipe({
+  name: 'orderFilter',
+  pure: false
+})
 export class OrderSearchPipe implements PipeTransform {
 
   transform(value:any, orderId:string):any {
 
     return value.filter(function (order) {
-      // console.log(order.orderId);
+       // console.log(order.orderId);
       if (!orderId){
         return true;
       }
