@@ -8,8 +8,9 @@
 
               <div class="col m4 s4">
                 <h5>Prescription</h5>
-
-                <img src="#" width="100px" height="100px" style="background-color: #00acc1">
+                <a [attr.href]="prescriptionUrl" [attr.data-lightbox]="order.orderId" [attr.data-caption]="order.orderId">
+                <img src="#" width="100px" height="100px" class="materialboxed" [attr.src]="prescriptionUrlThumb">
+                </a>
                 <br>
                 <h5>Note:</h5>
 

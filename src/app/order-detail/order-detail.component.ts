@@ -1,8 +1,10 @@
 import {Component, OnInit, Input, OnDestroy, OnChanges} from '@angular/core';
 import {FirebaseService} from '../firebase/firebase.service';
 import {MaterializeDirective} from 'angular2-materialize';
+import 'lightbox2';
 
-declare var Materialize: any;
+declare var Materialize:any;
+declare var cloudinary:any;
 
 @Component({
   moduleId: module.id,
@@ -22,13 +24,20 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
   private address:any;
   private userRef:any;
   private addressRef:any;
+  private cloudinary:any;
+  private prescriptionUrl:string = "assets/img/prescription.svg";
+  private prescriptionUrlThumb:string = "assets/img/prescription.svg";
 
-  private status_array:string[] = [ 'PENDING', 'ACKNOWLEDGED', 'CONFIRMED', 'CANCELED', 'CLOSED']
+  private status_array:string[] = ['PENDING', 'ACKNOWLEDGED', 'CONFIRMED', 'CANCELED', 'CLOSED']
 
   constructor(private _firebase:FirebaseService) {
     this.orderRef = this._firebase.getRootDatabase().ref("orders/");
     this.userRef = this._firebase.getRootDatabase().ref("users/");
     this.addressRef = this._firebase.getRootDatabase().ref("addresses/");
+
+    this.cloudinary = cloudinary.Cloudinary.new({cloud_name: "dvlr2z7ge"});
+
+
   }
 
   ngOnInit() {
@@ -52,6 +61,14 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
       that.order = snapshot.val();
       that.fetchUser();
       that.fetchAddress();
+
+      if (that.order.prescriptionUrl.length > 0) {
+        that.prescriptionUrl = that.cloudinary.url(that.order.prescriptionUrl + ".jpg");
+        that.prescriptionUrlThumb = that.cloudinary.url(that.order.prescriptionUrl + ".jpg", {height: 75, quality: 30, width: 75, crop: "limit"});
+      } else {
+        that.prescriptionUrl = "assets/img/prescription.svg";
+        that.prescriptionUrlThumb = "assets/img/prescription.svg";
+      }
     });
 
   }
@@ -85,22 +102,22 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
 
   private updateOrder() {
 
-      if (this.order) {
-        var orderData = {
-          price: this.order.price,
-          shippingCharge: this.order.shippingCharge,
-          status: this.order.status,
-          sellerNote: this.order.sellerNote
-        };
-        
-        this.orderRef.update(orderData, (success) => {
-          if(success == null) {
-            Materialize.toast("Order updated", 2000);
-          } else {
-            Materialize.toast("Order update failed", 2000);
-          }
-        });
-      }
+    if (this.order) {
+      var orderData = {
+        price: this.order.price,
+        shippingCharge: this.order.shippingCharge,
+        status: this.order.status,
+        sellerNote: this.order.sellerNote
+      };
+
+      this.orderRef.update(orderData, (success) => {
+        if (success == null) {
+          Materialize.toast("Order updated", 2000);
+        } else {
+          Materialize.toast("Order update failed", 2000);
+        }
+      });
+    }
   }
 
   ngOnDestroy() {

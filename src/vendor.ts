@@ -29,6 +29,7 @@ import 'rxjs/add/operator/mergeMap';
 // look in src/platform/angular2-material2 and src/platform/providers
 
 import 'angular2-materialize';
+import 'lightbox2';
 
 
 if ('production' === ENV) {
