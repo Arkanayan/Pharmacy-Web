@@ -7,3 +7,13 @@
   background-position: right 30px center;
 }
 
+.order-list {
+  max-height: 570px;
+  height:auto !important;
+  overflow: auto;
+  width: auto;
+  overflow-x: hidden;
+}
+
+
+

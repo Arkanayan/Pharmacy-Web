@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, OnChanges, EventEmitter, OnDestroy, Ch
 import {FirebaseService} from '../firebase/firebase.service';
 import {OrderEvent} from "../models/OrderEvent";
 import {OrderSearchPipe} from "../pipes/OrderSearchPipe";
+import {OrderStatus} from '../models';
 
 declare var Materialize:any;
 declare var firebase:any;
@@ -16,11 +17,11 @@ declare var firebase:any;
 export class OrderList implements OnChanges, OnDestroy {
 
 
-  @Input("order_status") orderStatus:string = "OPEN";
+  @Input("order_status") orderStatus:string = OrderStatus[OrderStatus.PENDING];
   @Output() orderSelectedEvent:EventEmitter<any> = new EventEmitter();
   @Output() orderAddedEvent:EventEmitter<any> = new EventEmitter();
   @Output() orderRemovedEvent:EventEmitter<any> = new EventEmitter();
-  @Output() orderCountChange:EventEmitter<number> = new EventEmitter();
+  @Output() orderCountChange:EventEmitter<any> = new EventEmitter();
 
   public orderList:any[] = [];
   private selectedOrder:any;
@@ -31,7 +32,7 @@ export class OrderList implements OnChanges, OnDestroy {
   private rootRef;
 
   constructor(private _firebase:FirebaseService) {
-    this.ordersRef = firebase.database().ref('orders').orderByChild('status').equalTo("OPEN");
+    this.ordersRef = firebase.database().ref('orders').orderByChild('status').equalTo(OrderStatus[OrderStatus.PENDING]);
   }
 
   /*  ngOnInit() {
@@ -41,7 +42,7 @@ export class OrderList implements OnChanges, OnDestroy {
 
   ngOnChanges(changes:{}) {
     if (this.orderStatus == null) {
-      this.orderStatus = "OPEN";
+      this.orderStatus = OrderStatus[OrderStatus.PENDING];
     }
 
     /*
@@ -91,7 +92,7 @@ export class OrderList implements OnChanges, OnDestroy {
         orderEvent.orderCount = that.orderCount;
         orderEvent.orderId = order.orderId;
 
-        //emit evnets
+        //emit events
         that.orderAddedEvent.emit(orderEvent);
         that.orderCountChange.emit(that.orderCount);
       }

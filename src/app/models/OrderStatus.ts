@@ -1,8 +1,8 @@
 export enum OrderStatus {
-  OPEN,
+  PENDING,
   ACKNOWLEDGED,
     CONFIRMED,
     CANCELED,
-  PENDING
+  COMPLETED
 
 }

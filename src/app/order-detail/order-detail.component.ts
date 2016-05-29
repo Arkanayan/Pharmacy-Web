@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, OnDestroy, OnChanges} from '@angular/core';
 import {FirebaseService} from '../firebase/firebase.service';
 import {MaterializeDirective} from 'angular2-materialize';
-import 'lightbox2';
+// import 'lightbox2';
 
 declare var Materialize:any;
 declare var cloudinary:any;
@@ -27,9 +27,7 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
   private cloudinary:any;
   private prescriptionUrl:string = "assets/img/prescription.svg";
   private prescriptionUrlThumb:string = "assets/img/prescription.svg";
-
-  private status_array:string[] = ['PENDING', 'ACKNOWLEDGED', 'CONFIRMED', 'CANCELED', 'CLOSED']
-
+  
   constructor(private _firebase:FirebaseService) {
     this.orderRef = this._firebase.getRootDatabase().ref("orders/");
     this.userRef = this._firebase.getRootDatabase().ref("users/");

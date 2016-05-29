@@ -6,6 +6,7 @@ import {XLarge} from './x-large';
 import {OrderBoard} from '../order-board';
 import { MaterializeDirective } from 'angular2-materialize';
 import {OrderEvent} from "../models/OrderEvent";
+import {OrderStatus} from "../models/OrderStatus";
 // import * as Digits from 'digits';
 declare var Materialize: any;
 
@@ -35,9 +36,9 @@ export class Home implements AfterViewInit {
 
   // TypeScript public modifiers
 
-  private orderStatus:string = "OPEN";
-  private confirmStatus:string = "CONFIRMED";
-  private acknowledgedStatus:string = "ACKNOWLEDGED";
+  private orderStatus:string = OrderStatus[OrderStatus.PENDING];
+  private confirmStatus:string = OrderStatus[OrderStatus.CONFIRMED];
+  private acknowledgedStatus:string = OrderStatus[OrderStatus.ACKNOWLEDGED];
 
   constructor(public appState:AppState, private _firebase:FirebaseService) {
 
@@ -48,11 +49,11 @@ export class Home implements AfterViewInit {
   }
 
   statusOpen() {
-    this.orderStatus = "OPEN";
+    this.orderStatus = OrderStatus[OrderStatus.PENDING];
   }
 
   statusConfirmed() {
-    this.orderStatus = "CONFIRMED";
+    this.orderStatus = OrderStatus[OrderStatus.CONFIRMED];
   }
 
   ngAfterViewInit() {

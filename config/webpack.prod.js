@@ -157,17 +157,23 @@ module.exports = webpackMerge(commonConfig, {
       beautify: false, //prod
 
       mangle: {
+        except: ['Materialize']
+      },
+
+/*
+      mangle: {
         screw_ie8 : true,
         keep_fnames: true
       }, //prod
+*/
 
       compress: {
         screw_ie8: true
       }, //prod
 
+      exclude: ['/materialize.js/g'],
       comments: false //prod
     }),
-
     /**
      * Plugin: CompressionPlugin
      * Description: Prepares compressed versions of assets to serve
