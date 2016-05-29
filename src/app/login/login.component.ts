@@ -34,7 +34,7 @@ export class Login implements OnInit {
 
 
     if (!Digits.isInitialized()) {
-      Digits.init({consumerKey: "Gwga2hQKqbsL8ElziK4dgOqly"});
+      Digits.init({consumerKey: "V2KKuYwX79FOjznZJ4opyoTK1"});
     }
   }
 
