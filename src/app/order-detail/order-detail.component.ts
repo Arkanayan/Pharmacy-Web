@@ -27,7 +27,9 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
   private cloudinary:any;
   private prescriptionUrl:string = "assets/img/prescription.svg";
   private prescriptionUrlThumb:string = "assets/img/prescription.svg";
-  
+
+  private status_array:string[] = ['PENDING', 'ACKNOWLEDGED', 'CONFIRMED', 'CANCELED', 'CLOSED']
+
   constructor(private _firebase:FirebaseService) {
     this.orderRef = this._firebase.getRootDatabase().ref("orders/");
     this.userRef = this._firebase.getRootDatabase().ref("users/");
@@ -66,6 +68,7 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
       } else {
         that.prescriptionUrl = "assets/img/prescription.svg";
         that.prescriptionUrlThumb = "assets/img/prescription.svg";
+
       }
     });
 
