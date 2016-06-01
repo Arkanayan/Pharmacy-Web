@@ -6,9 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
+var firebase = require('firebase');
+
+firebase.initializeApp({
+  serviceAccount: "./routes/AhanaPharmacy.json",
+  databaseURL: "https://ahana-pharmacy-ffe04.firebaseio.com"
+});
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var getToken = require('./routes/getToken');
+var sendMessage = require('./routes/sendMessage');
 
 var app = express();
 
@@ -28,6 +37,7 @@ app.use(cors({credentials: true, origin: true}));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/getToken', getToken);
+app.use('/sendMessage', sendMessage);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
