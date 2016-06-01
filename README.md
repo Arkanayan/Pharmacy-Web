@@ -280,7 +280,7 @@ see [typings/registry](https://github.com/typings/registry)
 * How do I run protractor with node 0.12.x?
   * please check out this repo to use the old version of protractor [#146](https://github.com/AngularClass/angular2-webpack-starter/pull/146/files)
 * Where do I write my tests?
-  * You can write your tests next to your component files. See [`/src/app/home/home.spec.ts`](/src/app/home/home.spec.ts)
+  * You can write your tests next to your component files. See [`/src/app/home/orders.spec.ts`](/src/app/home/orders.spec.ts)
 * How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
   * The `EADDRINUSE` error means the port `3000` is currently being used and `EACCES` is lack of permission for webpack to build files to `./dist/`
 * How to use `sass` for css?

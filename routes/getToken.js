@@ -5,11 +5,7 @@ var https = require('https');
 var url = require('url');
 var firebase = require('firebase');
 
-firebase.initializeApp({
-  serviceAccount: __dirname + "/AhanaPharmacy.json",
-  databaseURL: "https://ahana-pharmacy-ffe04.firebaseio.com"
-      });
-// Get getToken page
+// getToken page
 
 router.post('/', function (req, res, next) {
   var headerUrl = req.body["X-Auth-Service-Provider"];

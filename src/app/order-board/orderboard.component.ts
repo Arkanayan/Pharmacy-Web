@@ -35,7 +35,7 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes:{}) {
 
     if (this.orderStatus == null) {
-      this.orderStatus = OrderStatus[OrderStatus.PENDING];
+      this.orderStatus = "";
     }
 
     /*    this.ordersRef.off();
@@ -64,7 +64,7 @@ export class OrderBoard implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy() {
     // remove listener
     // this.ordersRef.off();
-    console.log("On destroy orderboard");
+    // console.log("On destroy orderboard");
   }
 
 

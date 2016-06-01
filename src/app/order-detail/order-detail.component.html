@@ -60,8 +60,8 @@
 
 
             <div class="card-action">
-              <a href="#" (click)="updateOrder()">Save</a>
-              <a href="#" class="activator">Send notification</a>
+              <a href="#" (click)="updateOrder();clicked($event);">Save</a>
+              <a href="#" class="activator" (click)="clicked($event)">Send notification</a>
 
             </div>
             <div class="card-reveal">
@@ -69,10 +69,13 @@
               <span class="card-title grey-text text-darken-4">Send notification<i class="material-icons right">close</i></span>
 
               <label for="notification-title">Notification title</label>
-              <input id="notification-title" type="text">
+              <input id="notification-title" type="text" [(ngModel)]="notificationTitle"
+                     value="Order update {{ order.orderId }}"
+              >
 
               <label for="notification-message">Notification message</label>
-              <input id="notification-message"  type="text">
+              <input id="notification-message"  type="text" [(ngModel)]="notificationBody"
+              value="The price is {{ order.price + order.shippingCharge }}">
 
               <div class="input-field">
                 <select materialize="material_select" [(ngModel)]="order.status">
@@ -82,7 +85,9 @@
                 <label>Set Status</label>
               </div>
               <br>
-              <button class="btn waves-effect waves-light" type="button" name="action">Send
+              <button class="btn waves-effect waves-light" type="button"  name="action"
+              (click)="sendNotification()"
+              >Send
                 <i class="material-icons right">send</i>
               </button>
             </div>

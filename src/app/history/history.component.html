@@ -1,0 +1,30 @@
+<div class="history-component">
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs" materialize="tabs">
+        <li class="tab col s3"><a class="active" href="#completed">Completed
+          ({{ completedOrderCount }})
+        </a>
+        </li>
+        <li class="tab col s3"><a href="#canceled">Canceled
+        ({{ canceledOrdersCount }})
+        </a></li>
+      </ul>
+    </div>
+    <div id="completed" class="col s12">
+      <order-board [order_status]="completedStatus"
+      (orderCountChange)="completedOrderCount=$event"
+      >Loading Please wait</order-board>
+
+    </div>
+    <div id="canceled" class="col s12">
+      <order-board [order_status]="canceledStatus"
+      (orderCountChange)="canceledOrdersCount=$event"
+      >Loading Please wait</order-board>
+
+    </div>
+
+
+
+  </div>
+</div>

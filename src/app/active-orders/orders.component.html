@@ -1,0 +1,40 @@
+<div class="" >
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs" materialize="tabs">
+        <li class="tab col s3"><a class="active" href="#open" (click)="statusOpen()">Pending
+          ({{ pendingOrderCount }})
+        </a>
+        </li>
+        <li class="tab col s3"><a href="#acknowledged">Acknowledged
+        ({{ ackOrdersCount }})
+        </a></li>
+        <li class="tab col s3"><a href="#confirmed">Confirmed
+        ({{ confirmedOrderCount }})
+        </a></li>
+      </ul>
+    </div>
+    <div id="open" class="col s12">
+      <order-board [order_status]="orderStatus"  (orderSelectedEvent)="selectOrder($event)"
+      (orderCountChange)="pendingOrderCount=$event"
+                   (orderAddedEvent)="newOrder($event)"
+      >Loading Please wait</order-board>
+
+    </div>
+    <div id="acknowledged" class="col s12">
+      <order-board [order_status]="acknowledgedStatus"
+      (orderCountChange)="ackOrdersCount=$event"
+      >Loading Please wait</order-board>
+
+    </div>
+
+    <div id="confirmed" class="col s12">
+      <order-board [order_status]="confirmStatus"
+      (orderCountChange)="confirmedOrderCount=$event"
+      >Loading Please wait</order-board>
+
+    </div>
+
+
+  </div>
+</div>

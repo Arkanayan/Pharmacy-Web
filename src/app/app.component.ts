@@ -4,11 +4,12 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {RouteConfig} from '@angular/router-deprecated';
 import {AppState} from './app.service';
-import {Home} from './home';
+import {Orders} from './active-orders';
 // import {RouterActive} from './router-active';
 import {OrderDetail} from './order-detail';
 import {Login} from './login';
 import {LoggedInRouterOutlet} from './logged-in-outlet';
+import {Dashboard} from "./dashboard/dashboard.component";
 /*
  * App Component
  * Top Level Component
@@ -28,8 +29,7 @@ import {LoggedInRouterOutlet} from './logged-in-outlet';
   `
 })
 @RouteConfig([
-  { path: '/', redirectTo: ['/Home'] },
-  { path: '/home', component: Home, as: 'Home' },
+  { path: '/dashboard/...', component: Dashboard, as: 'Dashboard' , useAsDefault: true},
   { path: '/login', component: Login, as: 'Login' },
 ])
 

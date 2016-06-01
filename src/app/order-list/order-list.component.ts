@@ -62,7 +62,7 @@ export class OrderList implements OnChanges, OnDestroy {
       });
 
       // set selectedOrder to first item
-      that.selectOrder(that.orderList[0]);
+      that.selectOrder(null, that.orderList[0]);
       // indicate that initially data has loaded
       that.hasInitialLoad = true;
       //emit order count event
@@ -141,12 +141,16 @@ export class OrderList implements OnChanges, OnDestroy {
 
   ngOnDestroy() {
     this.ordersRef.off();
-    console.log("On destroy order list");
+    // console.log("On destroy order list");
 
   }
 
-  selectOrder(order) {
+  selectOrder(event, order) {
+    if (event != null) {
+      event.preventDefault();
+    }
     this.selectedOrder = order;
     this.orderSelectedEvent.emit(this.selectedOrder);
+
   }
 }
