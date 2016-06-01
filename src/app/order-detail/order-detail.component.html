@@ -60,8 +60,8 @@
 
 
             <div class="card-action">
-              <a href="#" (click)="updateOrder()">Save</a>
-              <a href="#" class="activator">Send notification</a>
+              <a href="#" (click)="updateOrder();clicked($event);">Save</a>
+              <a href="#" class="activator" (click)="clicked($event)">Send notification</a>
 
             </div>
             <div class="card-reveal">
@@ -82,7 +82,7 @@
                 <label>Set Status</label>
               </div>
               <br>
-              <button class="btn waves-effect waves-light" type="button" name="action">Send
+              <button class="btn waves-effect waves-light" type="button"  name="action">Send
                 <i class="material-icons right">send</i>
               </button>
             </div>

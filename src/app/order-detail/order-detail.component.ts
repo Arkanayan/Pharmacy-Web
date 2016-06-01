@@ -28,7 +28,7 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
   private prescriptionUrl:string = "assets/img/prescription.svg";
   private prescriptionUrlThumb:string = "assets/img/prescription.svg";
 
-  private status_array:string[] = ['PENDING', 'ACKNOWLEDGED', 'CONFIRMED', 'CANCELED', 'CLOSED']
+  private status_array:string[] = ['PENDING', 'ACKNOWLEDGED', 'CONFIRMED', 'CANCELED', 'COMPLETED', ]
 
   constructor(private _firebase:FirebaseService) {
     this.orderRef = this._firebase.getRootDatabase().ref("orders/");
@@ -126,7 +126,13 @@ export class OrderDetail implements OnInit, OnDestroy, OnChanges {
     this.orderRef.off();
     this.userRef.off();
     this.addressRef.off();
-    console.log("On destroy order detail");
+    // console.log("On destroy order detail");
 
+  }
+
+  clicked(event) {
+    if (event != null) {
+      event.preventDefault();
+    }
   }
 }

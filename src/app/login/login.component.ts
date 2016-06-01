@@ -79,8 +79,8 @@ export class Login implements OnInit {
             localStorage.setItem("logged_in", this._firebase.getCurrentUser().uid);
             Materialize.toast("Welcome", 4000);
 
-            // redirect to home page
-            this._router.navigate(['/Home']);
+            // redirect to active-orders page
+            this._router.navigate(['/Dashboard']);
           } else {
             console.log("Your are not admin");
             this._firebase.logout();

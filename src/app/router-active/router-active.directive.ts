@@ -17,8 +17,8 @@ import { Instruction, Router, RouterLink } from '@angular/router-deprecated';
  * ## Use
  *
  * ```
- * <li router-active="active"><a [routerLink]=" ['/Home'] ">Home</a></li>
- * <li [routerActive]=" activeStringValue "><a [routerLink]=" ['/Home'] ">Home</a></li>
+ * <li router-active="active"><a [routerLink]=" ['/Orders'] ">Orders</a></li>
+ * <li [routerActive]=" activeStringValue "><a [routerLink]=" ['/Orders'] ">Orders</a></li>
  * ```
  */
 @Directive({

@@ -11,10 +11,10 @@ import { MockBackend } from '@angular/http/testing';
 
 // Load the implementations that should be tested
 import { AppState } from '../app.service';
-import { Home } from './home.component';
+import { Orders } from './orders.component.ts';
 import { Title } from './title';
 
-describe('Home', () => {
+describe('Orders', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEachProviders(() => [
     BaseRequestOptions,
@@ -29,18 +29,18 @@ describe('Home', () => {
 
     AppState,
     Title,
-    Home
+    Orders
   ]);
 
-  it('should have default data', inject([ Home ], (home) => {
+  it('should have default data', inject([ Orders ], (home) => {
     expect(home.localState).toEqual({ value: '' });
   }));
 
-  it('should have a title', inject([ Home ], (home) => {
+  it('should have a title', inject([ Orders ], (home) => {
     expect(!!home.title).toEqual(true);
   }));
 
-  it('should log ngOnInit', inject([ Home ], (home) => {
+  it('should log ngOnInit', inject([ Orders ], (home) => {
     spyOn(console, 'log');
     expect(console.log).not.toHaveBeenCalled();
 

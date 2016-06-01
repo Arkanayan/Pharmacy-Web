@@ -1,0 +1,20 @@
+
+<nav materialize>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Ahana Pharmacy Admin</a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse" sideNav><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li
+        router-active
+      ><a [routerLink]="['./Orders']" >Active Orders</a></li>
+      <li router-active><a [routerLink]="['./History']">History</a></li>
+
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li><a [routerLink]="['./Orders']">Active Orders</a></li>
+      <li><a [routerLink]="['./History']">History</a></li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
