@@ -60,8 +60,8 @@
 
 
             <div class="card-action">
-              <a href="#" (click)="updateOrder();clicked($event);">Save</a>
-              <a href="#" class="activator" (click)="clicked($event)">Send notification</a>
+              <a href="#" class="blue-text text-darken-2" (click)="updateOrder();clicked($event);">Save</a>
+              <a href="#" class="activator blue-text text-darken-2" (click)="clicked($event)">Send notification</a>
 
             </div>
             <div class="card-reveal">
@@ -75,7 +75,7 @@
 
               <label for="notification-message">Notification message</label>
               <input id="notification-message"  type="text" [(ngModel)]="notificationBody"
-              value="The price is {{ order.price + order.shippingCharge }}">
+              value="The price is {{ order.price + order.shippingCharge}}">
 
               <div class="input-field">
                 <select materialize="material_select" [(ngModel)]="order.status">

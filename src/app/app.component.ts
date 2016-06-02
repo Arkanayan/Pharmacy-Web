@@ -29,7 +29,7 @@ import {Dashboard} from "./dashboard/dashboard.component";
   `
 })
 @RouteConfig([
-  { path: '/dashboard/...', component: Dashboard, as: 'Dashboard' , useAsDefault: true},
+  { path: '/...', component: Dashboard, as: 'Dashboard' , useAsDefault: true},
   { path: '/login', component: Login, as: 'Login' },
 ])
 
