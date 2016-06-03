@@ -1,0 +1,65 @@
+<!--<div class="collection">
+  <input placeholder="Search" value="" class="input-field collection-item" id="user-search-box"
+         [(ngModel)]="searchTerm"
+         (keydown.esc)="searchTerm=''"
+  >
+  <div class="order-list"  *ngIf="usersList.length">
+    <a href="#" *ngFor="let user of usersList" class="collection-item"
+       [class.active]="selectedUser?.uid == user.uid"
+       (click)="selectUser($event, user)"
+
+    ><span class="title">{{ user.uid }}</span>
+      <p>{{ user.firstName}} {{ user.lastName }}
+      </p>
+      <p>{{ user.phoneNumber }} <br>
+        {{ user.emailAddress }}
+      </p>
+      </a>
+  </div>
+</div>-->
+<!--<div class="row">
+
+
+  <div class="">
+
+    <div class="order-list"  >
+      <a href="#" *ngFor="let user of usersList" class="col s12 m3"
+         [class.active]="selectedUser?.uid == user.uid"
+         (click)="selectUser($event, user)"
+
+      ><span class="title">{{ user.uid }}</span>
+        <p>{{ user.firstName}} {{ user.lastName }}
+        </p>
+        <p>{{ user.phoneNumber }} <br>
+          {{ user.emailAddress }}
+        </p>
+      </a>
+    </div>
+
+  </div>
+</div>-->
+
+
+<div class="row collection" *ngIf="usersList.length">
+  <input placeholder="Search" value="" class="input-field collection-item" id="user-search-box"
+         [(ngModel)]="searchTerm"
+         (keydown.esc)="searchTerm=''">
+  <div class="col s12 m4" *ngFor="let user of usersList">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">{{ user.uid }}</span>
+        <span class="small">Registered: {{ user.createdAt | date:'medium' }}</span>
+        <br>
+        <br>
+        <p>{{ user.firstName}} {{ user.lastName }}
+        </p>
+        <p>{{ user.phoneNumber }} <br>
+          {{ user.emailAddress }}
+        </p>
+      </div>
+      <div class="card-action">
+        <a [routerLink]="['../User', {user_id :user.uid }]" >Details</a>
+      </div>
+    </div>
+  </div>
+</div>

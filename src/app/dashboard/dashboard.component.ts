@@ -5,6 +5,8 @@ import {Orders} from "../active-orders/orders.component";
 import {History} from '../history';
 import {MaterializeDirective} from 'angular2-materialize';
 import {RouterActive} from '../router-active';
+import {Users} from "../users";
+import {UserDetail} from "../user-detail/user-detail.component";
 
 @Component({
   moduleId: module.id,
@@ -16,7 +18,9 @@ import {RouterActive} from '../router-active';
 
 @RouteConfig([
   {path: '/orders', component: Orders, as: 'Orders', useAsDefault: true},
-  {path: '/history', component: History, as: 'History'}
+  {path: '/history', component: History, as: 'History'},
+  {path: '/users', component: Users, as: 'Users'},
+  {path: '/user/:user_id', component: UserDetail, as: 'User'}
 ])
 
 export class Dashboard implements OnInit {

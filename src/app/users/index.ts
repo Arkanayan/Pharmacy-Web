@@ -1,3 +1,1 @@
-/**
- * Created by arka on 2/6/16.
- */
+export * from './users.component';

@@ -1,45 +1,47 @@
 import {Component, OnInit, Input, OnChanges, OnDestroy} from '@angular/core';
 import {FirebaseService} from '../firebase'
-
-declare var Materialize: any;
+import {RouteParams} from '@angular/router-deprecated';
+declare var Materialize:any;
 
 @Component({
-    moduleId: module.id,
-    selector: 'user-detail',
-    template: require('user-detail.component.html')
+  moduleId: module.id,
+  selector: 'user-detail',
+  template: require('./user-detail.component.html')
 })
-export class UserDetail implements OnChanges,OnDestroy {
+export class UserDetail implements OnInit,OnDestroy {
 
 
+  @Input("user_id") uid:string;
+  isEditable:boolean = false;
+  private user:any;
+  private address:any;
+  private userRef:any;
+  private addressRef:any;
+  private addressKey:any;
 
-    @Input() uid:string;
-    isEditable: boolean = false;
-    private user: any;
-    private address:any;
-    private userRef: any;
-    private addressRef: any;
-    private addressKey: any;
+
+  constructor(private _firebase:FirebaseService, private params: RouteParams) {
+
+    this.uid = params.get('user_id');
+    this.userRef = this._firebase.getRootDatabase().ref("users/" + this.uid);
+    this.addressRef = this._firebase.getRootDatabase().ref("addresses/");
 
 
-    constructor(private _firebase: FirebaseService) {
+  }
 
-      this.userRef = this._firebase.getRootDatabase().ref("users/");
-      this.addressRef = this._firebase.getRootDatabase().ref("addresses/");
+  ngOnInit() {
+    console.log(this.uid);
+    if (this.uid) {
 
+      this.userRef = this._firebase.getRootDatabase().ref("users/" + this.uid);
+      this.userRef.on('value', (snapshot) => {
+        if (snapshot.exists()) {
+          this.user = snapshot.val();
+          // this.showUser(this.user);
+          this.fetchAddress();
+        }
+      });
     }
-
-  ngOnChanges(changes:{}) {
-
-      if (this.uid != null) {
-
-        this.userRef = this._firebase.getRootDatabase().ref("users/" + this.uid).on('value', (snapshot) => {
-          if (snapshot.exists()) {
-            this.user = snapshot.val();
-            // this.showUser(this.user);
-            this.fetchAddress();
-          }
-        });
-      }
   }
 
   showUser(currentUser:any) {
@@ -49,13 +51,13 @@ export class UserDetail implements OnChanges,OnDestroy {
   private fetchAddress() {
     if (this.user != null) {
 
-      this.addressRef = this._firebase.getRootDatabase().ref("addresses/" + this.user.uid);
+      this.addressRef = this._firebase.getRootDatabase().ref("addresses/" + this.user.uid + "/" + this.addressKey);
 
       this.addressRef.on('value', (snapshot) => {
         var that = this;
         snapshot.forEach((value) => {
           this.address = value.val();
-          this.addressKey = value.key();
+          this.addressKey = value.key;
           return;
         });
       });
@@ -65,7 +67,7 @@ export class UserDetail implements OnChanges,OnDestroy {
 
   updateAddress() {
 
-    if(this.address) {
+    if (this.address) {
 
       var addressData = {
         addressLine1: this.address.addressLine1,
@@ -86,26 +88,26 @@ export class UserDetail implements OnChanges,OnDestroy {
 
   updateUser() {
 
-      if (this.user) {
-        var userData = {
-          firstName: this.user.firstName,
-          lastName: this.user.lastName,
-          emailAddress: this.user.emailAddress,
-        };
+    if (this.user) {
+      var userData = {
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        emailAddress: this.user.emailAddress,
+      };
 
-        this.userRef.update(userData, (success) => {
-          if (success == null) {
-            Materialize.toast("User updated", 2000);
-          } else {
-            Materialize.toast("User update failed", 2000);
-          }
-        });
+      this.userRef.update(userData, (success) => {
+        if (success == null) {
+          Materialize.toast("User updated", 2000);
+        } else {
+          Materialize.toast("User update failed", 2000);
+        }
+      });
 
-      }
+    }
   }
 
   ngOnDestroy() {
-    this.addressRef.off();
     this.userRef.off();
+    this.addressRef.off();
   }
 }
