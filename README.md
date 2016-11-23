@@ -258,6 +258,6 @@ You can include your type definitions in this file until you create one for the 
 see [typings/registry](https://github.com/typings/registry)
 
 # Credits
- Bootstrapped from Angular Webpack Starter Class
+ Bootstrapped from [Angular2 Webpack Starter](https://github.com/AngularClass/angular2-webpack-starter)
 # License
  [MIT](/LICENSE)
