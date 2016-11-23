@@ -8,9 +8,11 @@ var cors = require('cors');
 
 var firebase = require('firebase');
 
+//TODO 1) Add route to service account .json file
+// 2) Enter firebase database url 
 firebase.initializeApp({
-  serviceAccount: "./routes/AhanaPharmacy.json",
-  databaseURL: "https://ahana-pharmacy-ffe04.firebaseio.com"
+  serviceAccount: "./routes/Your .json file",
+  databaseURL: "https://<Your Project Url>.firebaseio.com"
 });
 
 

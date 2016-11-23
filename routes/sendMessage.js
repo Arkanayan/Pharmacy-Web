@@ -32,7 +32,8 @@ router.post('/', function (req, res, next) {
       }*/
 
       // send message
-      var sender = new gcm.Sender('AIzaSyC3O8vo0W0g-KUJ2OH3tjakpvsncfBWisk');
+      //TODO Enter FCM sender token here
+      var sender = new gcm.Sender('YOUR FCM SENDER TOKEN');
       var regTokens = [registrationToken];
 
       var message = new gcm.Message({

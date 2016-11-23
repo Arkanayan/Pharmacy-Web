@@ -8,11 +8,13 @@ declare var firebase:any;
 export class FirebaseService {
 
   constructor(private http:Http) {
+    //TODO ADD firebae config here
+    //Check here https://firebase.google.com/docs/web/setup
     var config = {
-      apiKey: "AIzaSyDgtOcgj-x_C-OsMJLFCu1Uqp4VLp16A-g",
-      authDomain: "ahana-pharmacy-ffe04.firebaseapp.com",
-      databaseURL: "https://ahana-pharmacy-ffe04.firebaseio.com",
-      storageBucket: "ahana-pharmacy-ffe04.appspot.com",
+      apiKey: "",
+      authDomain: "",
+      databaseURL: "",
+      storageBucket: "",
     };
     firebase.initializeApp(config);
 
@@ -61,7 +63,8 @@ export class FirebaseService {
       "credentials": digitsCreds['X-Verify-Credentials-Authorization'],
       "provider": digitsCreds['X-Auth-Service-Provider']
     };
-
+    
+    //TODO replace authUrl with your own server's getToken endpoint
     var authUrl:string = "https://appadmin-apharmacy.rhcloud.com/getToken";
 
     var params = "X-Auth-Service-Provider=" + loginData.provider + "&X-Verify-Credentials-Authorization=" +
