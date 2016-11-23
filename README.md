@@ -21,6 +21,9 @@ This web app is used to manage orders ordered by the [Pharmacy Android App](http
  * Send push notification to the customer informing order update
  * Manage users (update user details, address)
 
+## Screenshot
+<img width="640px" height="309px" src="https://github.com/Arkanayan/Pharmacy-Web/raw/master/screenshots/admin-screenshot-0.jpg" />
+
 ### Quick start
 **Make sure you have Node version >= 4.0 and NPM >= 3**
 > Clone/Download the repo then edit `app.ts` inside [`/src/app/app.ts`](/src/app/app.ts)
